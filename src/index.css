@@ -1,0 +1,32 @@
+*{
+  margin: 0;
+  padding: 0;
+  border-radius: border-box;
+  font-family: 'roboto',sans-serif;
+  text-align: center;
+}
+form{
+  margin: 10px;
+  border: 0cap;
+  border-color: black;
+  border-width: 0ch;
+  border-left: 0cap;
+  border-style: dotted;
+  background-image: "C:\Users\shree\Desktop\SSB\.vscode\my-app\src\custom components.jpg";
+}
+fieldset{
+  width: 500px;
+  margin: 0 auto;
+  
+}
+.CTextField{
+ text-decoration: solid;
+ color:white;
+ text-emphasis-color: rgb(9, 15, 182);
+ background-color: black;
+} 
+
+.ssb{
+  
+  border: 1px solid red;
+}
