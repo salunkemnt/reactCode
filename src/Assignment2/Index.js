@@ -1,25 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { styled } from '@mui/material/styles';
-import {
-  // Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  tableCellClasses,
-  Paper,
-  IconButton,
-  // Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Snackbar,
-  Alert,
-  } from '@mui/material';
-  import CTable from './components/CTable';
+import {TableBody,TableCell,TableContainer,TableHead,TableRow,tableCellClasses,Paper,
+        IconButton,DialogTitle,DialogContent,DialogActions,Button,Snackbar,Alert,} from '@mui/material';
+import CTable from './components/CTable';
 import ModeEditSharpIcon from '@mui/icons-material/ModeEditSharp';
 import DeleteOutlineTwoToneIcon from '@mui/icons-material/DeleteOutlineTwoTone';
 import CTextField from './components/CTextField';
@@ -40,8 +24,6 @@ function Index() {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    
-   
   }));
 
   const [jsonData, setJsonData] = useState([]);

@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-// import { styled } from '@mui/material/styles';
 import '../App.css'
-import {
-  // Typography,
-  FormGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  // TableCell,
-  // TableRow,
-} from '@mui/material';
+import {FormGroup,FormControlLabel,FormControl,FormLabel,RadioGroup,} from '@mui/material';
 import CTextField from '../Assignment1/components/CTextField';
 import CRadio from '../Assignment1/components/CRadio';
 import CCheckbox from '../Assignment1/components/CCheckbox';
 import CButton from '../Assignment1/components/CButton';
-import { addFormData } from '../Assignment3/Action';
-import ApplicantTable from './ApplicantTable';
-import CheckTable from './CheckTable';
+import { addFormData } from './Action';
 
-function Index1() {
+import { setUserData } from '../ReduxAssignment/formSlice'; 
+
+function CustomForm() {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
-  const formData = useSelector((state) => state.formData);
+  const formData = useSelector((state) => state.form.formData);
+  console.log(formData)
 
   const [formValues, setFormValues] = useState({
     firstName: '',
@@ -77,7 +68,7 @@ function Index1() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const validate = () => {
+  const onHandleClick = () => {
     if (!formValues.firstName) {
       setFormErrors((prevState) => ({
         ...prevState,
@@ -156,32 +147,18 @@ function Index1() {
       !formErrors.number &&
       !formErrors.email &&
       !formErrors.gender &&
-      !formErrors.check
+      !formErrors.check &&
+      !formValues.firstName
     ) {
+      // setIsSubmitted(true);
+      dispatch(setUserData(formValues));
       
-      setIsSubmitted(true);
-      console.log(formValues);
-      dispatch(addFormData(formValues));
+      
     }
   };
 
-  // const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  //   [`&.${tableCellClasses.head}`]: {
-  //     backgroundColor: theme.palette.common.yellow,
-  //     color: theme.palette.common.black,
-  //   },
-  //   [`&.${tableCellClasses.body}`]: {
-  //     fontSize: 14,
-  //   },
-  // }));
-
-  // const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  //   '&:nth-of-type(odd)': {
-  //     backgroundColor: theme.palette.action.hover,
-  //   },
-  // }));
-  const handleNavigation = () => {
-    Navigate('/ApplicantTable'); 
+    const handleNavigation = () => { 
+    Navigate('/newTable');
   };
 
   return (
@@ -303,8 +280,8 @@ function Index1() {
        <br></br>
       <br></br>
       
-      <CButton onClick={validate} variant="contained">Submit</CButton>
-      <br />
+      <CButton onClick={onHandleClick} variant="contained">Submit</CButton>
+      <br></br>
       <CButton onClick={handleNavigation} variant="contained">Show Table</CButton>
 
       
@@ -317,10 +294,10 @@ function Index1() {
 
     
 
-    {/* <CheckTable data={formData}></CheckTable> */}
+  
     </>
   );
 }
 
-export default Index1;
+export default CustomForm;
      

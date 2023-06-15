@@ -1,6 +1,6 @@
-
 import React, {  useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser, deleteUser } from '../ReduxAssignment/formSlice';
 import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import {
@@ -26,7 +26,9 @@ import CTable from '../Assignment2/components/CTable';
 import CButton from '../Assignment1/components/CButton';
 import CDialog from '../Assignment2/components/CDialog';
 
-const ApplicantTable = () => {
+
+const NewApplicantTable = () => {
+
   const [formData,setFormData]=useState([]);
   const [editData, setEditData] = useState(null);
   const [deleteData, setDeleteData] = useState(null);
@@ -40,11 +42,12 @@ const ApplicantTable = () => {
   const numbers = [...Array(totalPages + 1).keys()].slice(1);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const handleNavigation = () => {
-    Navigate('/Assignment3'); 
+    navigate('/Assignment3'); 
   };
-  const sendData = useSelector((state) => state.formData);
+  const sendData = useSelector((state) => state.form.formData);
+  const dispatch = useDispatch();
   // const sendData = formData;
 
 console.log(sendData); 
@@ -75,15 +78,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   };
 
   const saveEditedData = () => {
-    const index = formData.findIndex((data) => data.id === editData.id);
-    sendData[index] = editData;
-
-    setFormData((prevData) => {
-      const updatedformData = [...formData];
-      updatedformData[index] = editData;
-      setFormData(updatedformData);
-      return updatedformData;
-    });
+    
+    dispatch(updateUser(editData));
 
     closeEditDialog();
     showSnackbar('Your Data Updated successfully!');
@@ -95,11 +91,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   };
 
   const confirmDelete = () => {
-    const updatedformdata = formData.filter((data) => data.id !== deleteData.id);
-    setFormData(updatedformdata);
+   
+    dispatch(deleteUser(deleteData.email));
     setDeleteDialogOpen(false);
     showSnackbar('Your User deleted successfully!');
-    // sendData = updatedformdata;
+  
 
   };
 
@@ -132,9 +128,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   };
 
   return (
-
- <>
-    <TableContainer component={Paper}>
+    <>
+    <h1>APPLICANT TABLE</h1>
+      <TableContainer component={Paper}>
     <CTable sx={{border:"black"}}>
       <TableHead sx={{border:'black', backgroundColor:'green'}}>
         <TableRow sx={{textAlign:'center',border:'1px solid black'}}>
@@ -262,9 +258,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
           {snackbarMessage}
         </Alert>
       </Snackbar>
+   
     </>
   )
 }
 
-export default ApplicantTable
-
+export default NewApplicantTable
